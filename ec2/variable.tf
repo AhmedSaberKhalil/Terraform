@@ -5,4 +5,3 @@ variable "public_key" {}
 variable "subnet_id" {}
 variable "sg_for_jenkins" {}
 variable "enable_public_ip_address" {}
-variable "user_data_install_jenkins" {}

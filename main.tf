@@ -17,7 +17,7 @@ module "security_group" {
 module "ec2" {
   source                    = "./ec2"
   ami_id                    = var.ec2_ami_id
-  instance_type             = "t2.micro"
+  instance_type             = "t3.micro"
   tag_name                  = "Jenkins:Ubuntu Linux EC2"
   public_key                = var.public_key
   subnet_id                 = tolist(module.networking.dev_proj_1_public_subnets)[0]
@@ -31,7 +31,7 @@ module "lb_target_group" {
   lb_target_group_port     = 8080
   lb_target_group_protocol = "HTTP"
   vpc_id                   = module.networking.dev_proj_1_vpc_id
-  ec2_instance_id          = module.ec2.dev_proj_1_ec2_instance_id
+  ec2_instance_id          = module.ec2.jenkins_ec2_instance_ip
 }
 
 module "alb" {
@@ -42,12 +42,10 @@ module "alb" {
   sg_enable_ssh_https       = module.security_group.sg_ec2_sg_ssh_http_id
   subnet_ids                = tolist(module.networking.dev_proj_1_public_subnets)
   tag_name                  = "dev-proj-1-alb"
-  lb_target_group_arn       = module.lb_target_group.dev_proj_1_lb_target_group_arn
-  ec2_instance_id           = module.ec2.dev_proj_1_ec2_instance_id
+  ec2_instance_id           = module.ec2.jenkins_ec2_instance_ip
   lb_listner_port           = 80
   lb_listner_protocol       = "HTTP"
   lb_listner_default_action = "forward"
-  lb_https_listner_port     = 443
-  lb_https_listner_protocol = "HTTPS"
+  lb_target_group_arn       = module.lb_target_group.dev_proj_1_lb_target_group_arn 
   lb_target_group_attachment_port = 8080
 }
