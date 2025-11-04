@@ -1,19 +1,11 @@
-resource "aws_subnet" "private_1a" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_subnet1_cidr
-  availability_zone = var.availability_zone1
+# Setup private subnet
+resource "aws_subnet" "dev_proj_1_private_subnets" {
+  count             = length(var.cidr_private_subnet)
+  vpc_id            = aws_vpc.dev_proj_1_vpc_eu_central_1.id
+  cidr_block        = element(var.cidr_private_subnet, count.index)
+  availability_zone = element(var.eu_availability_zone, count.index)
 
   tags = {
-    Name = "private-subnet-1a"
-  }
-}
-
-resource "aws_subnet" "private_1b" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_subnet2_cidr
-  availability_zone = var.availability_zone2
-
-  tags = {
-    Name = "private-subnet-1b"
+    Name = "dev-proj-private-subnet-${count.index + 1}"
   }
 }

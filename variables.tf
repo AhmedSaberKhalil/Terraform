@@ -1,49 +1,34 @@
-variable region {
-  type = string
-  }
-
-variable vpc_cidr {
-  type = string
+variable "vpc_cidr" {
+  type        = string
+  description = "Public Subnet CIDR values"
 }
 
-variable public_subnet1_cidr {
-  type = string
+variable "vpc_name" {
+  type        = string
+  description = "DevOps Project 1 VPC 1"
 }
 
-variable public_subnet2_cidr {
-  type = string
+variable "cidr_public_subnet" {
+  type        = list(string)
+  description = "Public Subnet CIDR values"
 }
 
-variable private_subnet1_cidr {
-  type = string
+variable "cidr_private_subnet" {
+  type        = list(string)
+  description = "Private Subnet CIDR values"
 }
 
-variable private_subnet2_cidr {
-  type = string
+variable "us_availability_zone" {
+  type        = list(string)
+  description = "Availability Zones"
 }
 
-variable availability_zone1 {
-  type = string
-}
-variable availability_zone2 {
-  type = string
+variable "public_key" {
+  type        = string
+  description = "DevOps Project 1 Public key for EC2 instance"
 }
 
-variable allow_all {
-  type = string
+variable "ec2_ami_id" {
+  type        = string
+  description = "DevOps Project 1 AMI Id for EC2 instance"
 }
-
-variable instance_type {
-  type = string
-}
-variable ami {
-  type = string
-}
-
-variable key_name {
-  type = string
-}
-
-variable public_key_secrets_manager_name {
-  type = string
-} 

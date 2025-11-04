@@ -1,25 +1,12 @@
-output vpc_id {
-    value= aws_vpc.main.id
+output "dev_proj_1_vpc_id" {
+  value = aws_vpc.dev_proj_1_vpc_eu_central_1.id
 }
 
-output public_subnet1_id {
-    value= aws_subnet.main-1a.id
-}   
-
-output public_subnet2_id {
-    value= aws_subnet.main_1b.id
+output "dev_proj_1_public_subnets" {
+  value = aws_subnet.dev_proj_1_public_subnets.*.id
 }
 
-output private_subnet1_id {
-    value= aws_subnet.private_1a.id
+output "public_subnet_cidr_block" {
+  value = aws_subnet.dev_proj_1_public_subnets.*.cidr_block
 }
 
-output private_subnet2_id {
-    value= aws_subnet.private_1b.id
-}
-output nat_gateway_id {
-    value= aws_nat_gateway.main.id
-}
-output internet_gateway_id {
-    value= aws_internet_gateway.main.id
-}
